@@ -1,0 +1,114 @@
+$colors: [ --color-white,
+  --color-transparent,
+  --color-darkest,
+  --color-dark,
+  --color-orange,
+  --color-darkest-green,
+  --color-dark-orange,
+  --color-dark-silver];
+$colors-prefix: "--color-";
+
+$spacing: [--spacing-s2, --spacing-m, --spacing-m2, --spacing-s, --spacing-l, --spacing-xl, --spacing-xs];
+$spacing-prefix: "--spacing-";
+
+$border-radius: [ --border-radius-xs,
+  --border-radius-sm,
+  --border-radius-m,
+  --border-radius-l,
+  --border-radius-xl,
+  --border-radius-2xl,
+  --border-radius-rounded,
+  ];
+
+$border-radius-prefix: "--border-radius-";
+
+$font-size: [ --font-size-xs,
+  --font-size-s,
+  --font-size-m,
+  --font-size-l,
+  --font-size-xl,
+  --font-size-2xl];
+$font-size-prefix: "--font-size-";
+
+@include variants($colors, background-color, "bg", $colors-prefix);
+@include variants($colors, background-color, "dark:bg", $colors-prefix);
+
+@include variants($colors, color, "text", $colors-prefix);
+@include variants($colors, color, "dark:text", $colors-prefix);
+
+@include variants($colors, border-color, "border-bg", $colors-prefix);
+@include variants($colors, border-color, "dark:border-bg", $colors-prefix);
+
+@include variants($spacing, padding-left, "pl", $spacing-prefix);
+@include variants($spacing, padding-right, "pr", $spacing-prefix);
+@include variants($spacing, padding-top, "pt", $spacing-prefix);
+@include variants($spacing, padding-bottom, "pb", $spacing-prefix);
+@include variants($spacing, padding, "p", $spacing-prefix);
+
+@include variants($spacing, margin, "m", $spacing-prefix);
+@include variants($spacing, margin-left, "ml", $spacing-prefix);
+@include variants($spacing, margin-right, "mr", $spacing-prefix);
+@include variants($spacing, margin-top, "mt", $spacing-prefix);
+@include variants($spacing, margin-bottom, "mb", $spacing-prefix);
+
+@include variants($font-size, font-size, "font", $font-size-prefix);
+
+@include variants($border-radius, border-radius, "border", $border-radius-prefix);
+
+@include variants($border-radius, border-top-left-radius, "border-tl", $border-radius-prefix);
+@include variants($border-radius, border-top-right-radius, "border-tr", $border-radius-prefix);
+@include variants($border-radius, border-bottom-right-radius, "border-br", $border-radius-prefix);
+@include variants($border-radius, border-bottom-left-radius, "border-bl", $border-radius-prefix);
+
+:root {
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-darkest: #000000;
+  --color-dark: #181e4b;
+  --color-orange: #ff7c16;
+  --color-dark-orange: #e72228;
+  --color-dark-silver: #686d77;
+  --color-darkest-green: #212832;
+  // borders
+
+  --border-radius-xs: 0.5rem;
+  --border-radius-sm: 0.8rem;
+  --border-radius-m: 1rem;
+  --border-radius-l: 1.5rem;
+  --border-radius-xl: 2rem;
+  --border-radius-2xl: 3rem;
+  --border-radius-rounded: 50%;
+
+  --transition: all 0.2s linear;
+
+  //typograpghy
+  --font-size-2xl: 2.4rem;
+  --font-height-2xl: 2.88rem;
+
+  --font-size-xl: 1.8rem;
+  --font-height-xl: 2.4rem;
+
+  --font-size-l: 1.6rem;
+  --font-height-l: 2.2rem;
+
+  --font-size-m: 1.4rem;
+  --font-height-m: 2.52rem;
+
+  --font-size-s: 1.2rem;
+  --font-height-s: 1.44rem;
+
+  --font-size-xs: 1rem;
+  --font-height-xs: 1.4rem;
+
+  --font-bold: 700;
+  --regular: 400;
+
+  // spacings
+  --spacing-xs: 0.8rem;
+  --spacing-s: 1.6rem;
+  --spacing-s2: 2rem;
+  --spacing-m: 2.4rem;
+  --spacing-m2: 3.4rem;
+  --spacing-l: 4.2rem;
+  --spacing-xl: 5.2rem;
+}

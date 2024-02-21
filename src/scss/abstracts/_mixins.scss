@@ -1,0 +1,93 @@
+// ie english arabic you wont need it if you use flex
+@mixin rtl($property, $ltr-value, $rtl-value) {
+  & {
+    #{$property}: $ltr-value;
+  }
+
+  body[dir="rtl"] & {
+    #{$property}: $rtl-value;
+  }
+}
+
+// ie theme  dark light pink ...
+@mixin theme($theme, $property, $value) {
+  body.#{$theme} & {
+    #{$property}: $value;
+  }
+}
+
+// creates a classes based on variants
+@mixin variants($list, $property, $prefix, $replace) {
+  @if (str-index($prefix, "dark:")) {
+    @each $i in $list {
+      .#{str-replace($prefix,"dark:","dark-")}-#{str-replace($i,$replace,"")} {
+        @include theme("dark", $property, var($i));
+      }
+    }
+  } @else {
+    @each $i in $list {
+      .#{$prefix}-#{str-replace($i,$replace,"")} {
+        #{$property}: var($i);
+      }
+    }
+  }
+}
+
+@mixin grid-columns($columns) {
+  display: grid;
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
+}
+
+@mixin grid-span($span, $start, $end, $gap) {
+  grid-column: span $span / span $span;
+  grid-column-start: $start;
+  grid-column-end: $end;
+  column-gap: $gap;
+}
+
+// adding colors to mini icon svg
+@mixin svg() {
+  :root {
+    --background: red;
+    --width: 0rem;
+    --height: 0rem;
+    --maskImg: url("data:image/svg+xml;base64,IDxzdmcgd2lkdGg9IjUiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDUgOCIgZmlsbD0id2hpdGUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQogPHBhdGggZD0iIiAvPg0KIDwvc3ZnPg==");
+  }
+
+  .icon {
+    &-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // width: fit-content;
+      width: stretch;
+      height: stretch;
+      // height: fit-content;
+    }
+
+    background-color: var(--background);
+    width: var(--width);
+    height: var(--height);
+
+    mask-size: var(--width) var(--height);
+
+    &-img {
+      background: var(--background, red);
+      mask-size: var(--width) var(--height);
+      mask-image: var(--maskImg);
+    }
+  }
+}
+
+@mixin range($prop, $min, $max) {
+  #{'min-'+$prop}: $min;
+  #{'max-'+$prop}: $max;
+}
+
+@mixin width-range($min: fit-content, $max: fit-content) {
+  @include range(width, $min, $max);
+}
+
+@mixin height-range($min: fit-content, $max: fit-content) {
+  @include range(height, $min, $max);
+}

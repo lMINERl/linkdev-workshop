@@ -1,0 +1,100 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button,
+a,
+input,
+button:focus,
+a:focus,
+input:focus {
+  outline: none;
+  // color: inherit;
+}
+
+html {
+  --device: "laptop";
+  // width: fit-content;
+  // height: max-content;
+  font-size: 62.5%; // rendering 1rem to 10px
+  // background-color: $--color-white;
+}
+
+a,
+a:focus,
+a:hover {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+button {
+  outline: none;
+}
+
+input[type="text"],
+input[type="number"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  appearance: textfield;
+  outline: none;
+}
+
+img,
+object {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+#root {
+  height: max-content;
+}
+
+body {
+  width: 100%;
+  // min-width: fit-content;
+  min-width: stretch;
+
+  // height: 100vh;
+  height: max-content;
+
+  // height: max-content;
+
+  font-weight: 400;
+  @include media-prop(font-size, 1.4rem, 1.4rem);
+  letter-spacing: 0.3px;
+  // width: min-content;
+  line-height: 1.7rem;
+  // overflow-x: hidden;
+  // max-width: 100%;
+
+  font-family: "Roboto";
+}
+
+body[dir="rtl"] {
+  font-family: "Cario";
+}
+
+.scroll-y {
+  &::-webkit-scrollbar {
+    display: flex;
+    height: 10px;
+    width: 4px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c4c4c4;
+    @extend .border-xl;
+    // border-radius: $--border-radius-xl;
+  }
+}

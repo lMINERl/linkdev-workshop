@@ -1,0 +1,50 @@
+// @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Volkhov:wght@400;500;700&display=swap");
+
+//  styling adapts BEM naming
+//  http://getbem.com/introduction/
+//  make sure there is no higher priority than class or ie: hovers
+
+// abstracts ( order matters )
+@import "abstracts/functions"; //  use it in all repetative process that give away value
+@import "abstracts/mixins"; // all repetative process
+@import "abstracts/media"; // any media following given standards
+@import "abstracts/animations"; // any animations
+@import "abstracts/variables"; // all variables including css & scss variables
+
+// [base]
+@import "base/reset"; // includes all default css resets
+@import "base/typography"; // includes all typographys
+
+// [components]  includes all separate components ie:button,dropsdown,accordion
+@import "components/button";
+
+// [layout] more like component that is being used as standard across apps ie:table,footer,header,sidebar,appbar
+@import "layouts/header";
+
+// [pages] anything inculded in page and only for this page ie: home,about,contact
+@import "pages/home";
+
+// [theme] mostly this is on design prespective ie:dark,light when you only allowed to change variable linked to all app
+@import "theme/default";
+
+// [vendors] anything includs 3rd party libs ie:bootstrap,materialui
+@import "vendors/vendor";
+
+//  you can write anything here with !important or higher than class priority from this point on
+// that means you are doing something wrong and most likly you are not following the standard given
+// .shame {
+//
+// }
+
+// overrides just for blur loading with cursor no drop
+// reason: the only way to override subelements from parent
+.loading {
+  opacity: 0.33 !important;
+  cursor: no-drop !important;
+
+  & * {
+    pointer-events: none !important;
+    user-select: none !important;
+  }
+}

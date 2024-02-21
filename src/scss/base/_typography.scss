@@ -1,0 +1,23 @@
+.typo {
+  font-size: 62.5%;
+
+  &--poppins {
+    &-base {
+      font: normal normal 500 1.8rem/2.4rem Poppins; // i wont import google sans
+    }
+  }
+
+  &--center {
+    text-align: center !important;
+  }
+
+  &--truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &--wrap {
+    white-space: pre-wrap;
+  }
+}

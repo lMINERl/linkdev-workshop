@@ -1,0 +1,32 @@
+// devices
+$--min-labtop: 1024px;
+$--max-labtop: 1600px;
+$--labtop-width-ratio: 1;
+
+$--min-iPad: 1024px;
+$--max-iPad: 768px;
+
+$--min-phone: 375px;
+
+$--iPad-width-ratio-portrait: 0.5;
+$--iPad-width-ratio-landscape: 0.75;
+
+@mixin media-prop($property, $labtop-value, $iPad-value) {
+  // more or equal than the smallets labtop
+  @media only screen and (min-width: $--min-labtop) {
+    & {
+      #{$property}: $labtop-value;
+    }
+  }
+  @media (min-width: $--max-iPad) and (max-width: $--min-labtop) {
+    & {
+      #{$property}: $iPad-value;
+    }
+  }
+  // less or equal than the biggest ipad
+  @media only screen and (max-width: $--max-iPad) {
+    & {
+      #{$property}: $iPad-value;
+    }
+  }
+}
