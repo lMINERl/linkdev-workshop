@@ -66,7 +66,7 @@ const guestSlice = createSlice({
 });
 
 export const GuestActions = guestSlice.actions;
-const blackListSyncActions = [GuestActions.setSelectedLanding.name];
+const blackListSyncActions = [GuestActions.setSelectedLanding.name,GuestActions.setSelectedCategory.name];
 
 export const TabSyncGuestActionNames = Object.keys(GuestActions)
   .filter((v) => {

@@ -8,17 +8,6 @@ import { GuestActions } from "../../Store/Slice/GuestSlice";
 import Category from "../../assets/Category.png";
 import Card from "../../components/Card";
 
-const newsCategory = [
-  { title: "All news", field: "" },
-  { title: "Technology", field: "" },
-
-  { title: "Sport", field: "" },
-
-  { title: "Health", field: "" },
-
-  { title: "Economics", field: "" },
-];
-
 const Home = () => {
   const [homeState, setHomeState] = React.useState({
     loading: false,
@@ -181,57 +170,35 @@ const Home = () => {
               All news
             </button>
 
-            {newsCategory.map((v) => {
-              return (
-                <button
-                  type="button"
-                  key={v.id}
-                  style={{ minWidth: "12.3rem" }}
-                  onClick={() => {
-                    dispatch(GuestActions.setSelectedCategory(v));
-                  }}
-                  className={`home__media__list__item button  p-xs typo typo typo--nowarp border-m ${selectedCategory?.id == v.id ? "bg-sky-blue text-white" : "bg-light-gray"}`}
-                >
-                  {v.name}
-                </button>
-              );
-            })}
+            {newsCategory &&
+              newsCategory?.map((v) => {
+                return (
+                  <button
+                    type="button"
+                    key={v.id}
+                    style={{ minWidth: "12.3rem" }}
+                    onClick={() => {
+                      dispatch(GuestActions.setSelectedCategory(v));
+                    }}
+                    className={`home__media__list__item button  p-xs typo typo typo--nowarp border-m ${selectedCategory?.id == v.id ? "bg-sky-blue text-white" : "bg-light-gray"}`}
+                  >
+                    {v.name}
+                  </button>
+                );
+              })}
           </div>
 
           <div className="home__media__listing">
-            {mediaNews.map((v) => {
-              const d = new Date(v.publishedDate);
-              const date = d.toLocaleDateString("en", { dateStyle: "long" });
-              return (
-                <div key={v.id} className="home__media__listing__item">
-                  <Card category={v.categoryName} image={v.urlToImage} title={v.title} date={date} />
-                </div>
-              );
-            })}
-            <div className="home__media__listing__item">
-              <Card
-                image={Category}
-                title="Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
-                date="Wed 10 2020"
-                category="Technology"
-              />
-            </div>
-            <div className="home__media__listing__item">
-              <Card
-                image={Category}
-                title="Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
-                date="Wed 10 2020"
-                category="Technology"
-              />
-            </div>
-            <div className="home__media__listing__item">
-              <Card
-                image={Category}
-                title="Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
-                date="Wed 10 2020"
-                category="Technology"
-              />
-            </div>
+            {mediaNews &&
+              mediaNews.map((v) => {
+                const d = new Date(v.publishedDate);
+                const date = d.toLocaleDateString("en", { dateStyle: "long" });
+                return (
+                  <div key={v.id} className="home__media__listing__item">
+                    <Card category={v.categoryName} image={v.urlToImage} title={v.title} date={date} />
+                  </div>
+                );
+              })}
           </div>
         </section>
       </div>

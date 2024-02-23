@@ -15,7 +15,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import { createBlacklistFilter } from "redux-persist-transform-filter";
 
 import GuestSlice, { TabSyncGuestActionNames } from "./Slice/GuestSlice";
-import { GuestActionNames } from "./Thunk/GuestThunk";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 const rootReducer = combineReducers({
@@ -30,12 +29,12 @@ const persistConfig: PersistConfig<rootReducerState> = {
   stateReconciler: autoMergeLevel2,
   whitelist: ["guest"],
   // blacklist: ["auth", "loading", "persist/PERSIST", "persist/REHYDRATE"],
-  transforms: [createBlacklistFilter("guest", ["landing"])],
+  transforms: [createBlacklistFilter("guest", ["landing", "media", "original_media", "newsCategory"])],
 };
 
 // action types to sync between open tabs
 const syncConfig: Config = {
-  whitelist: [GuestActionNames.GetLanding, ...TabSyncGuestActionNames],
+  whitelist: [...TabSyncGuestActionNames],
 };
 
 export const store = configureStore({
