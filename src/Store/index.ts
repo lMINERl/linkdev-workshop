@@ -7,15 +7,16 @@ import storage from "redux-persist/lib/storage/session";
 import { PersistConfig } from "redux-persist";
 // this is intentional import { createWhitelistFilter } from "redux-persist-transform-filter";
 
-import { Config, createStateSyncMiddleware, initStateWithPrevTab } from "redux-state-sync";
+import { Config, createStateSyncMiddleware, initMessageListener, initStateWithPrevTab } from "redux-state-sync";
 import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
 import { configureStore } from "@reduxjs/toolkit";
 
 import { createBlacklistFilter } from "redux-persist-transform-filter";
 
-import GuestSlice from "./Slice/GuestSlice";
+import GuestSlice, { TabSyncGuestActionNames } from "./Slice/GuestSlice";
 import { GuestActionNames } from "./Thunk/GuestThunk";
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 const rootReducer = combineReducers({
   guest: GuestSlice.reducer,
@@ -26,15 +27,15 @@ export type rootReducerState = ReturnType<typeof rootReducer>;
 const persistConfig: PersistConfig<rootReducerState> = {
   key: "root",
   storage: storage,
-  stateReconciler: autoMergeLevel1,
+  stateReconciler: autoMergeLevel2,
   whitelist: ["guest"],
-  blacklist: ["auth", "loading", "persist/PERSIST", "persist/REHYDRATE"],
-  transforms: [createBlacklistFilter("route", ["breadcrumbs"])],
+  // blacklist: ["auth", "loading", "persist/PERSIST", "persist/REHYDRATE"],
+  transforms: [createBlacklistFilter("guest", ["landing"])],
 };
 
 // action types to sync between open tabs
 const syncConfig: Config = {
-  whitelist: [GuestActionNames.GetLanding],
+  whitelist: [GuestActionNames.GetLanding, ...TabSyncGuestActionNames],
 };
 
 export const store = configureStore({
@@ -48,7 +49,9 @@ export const store = configureStore({
 // allow store control from console
 // Reflect.set(window, "store", store);
 
-initStateWithPrevTab(store);
+// both of them works comment to disable sync state across the tabs
+// initStateWithPrevTab(store);
+initMessageListener(store);
 
 export type RootState = rootReducerState;
 export type AppDispatch = typeof store.dispatch;

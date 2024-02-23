@@ -18,7 +18,9 @@ html {
   --device: "laptop";
   // width: fit-content;
   // height: max-content;
-  font-size: 62.5%; // rendering 1rem to 10px
+  // font-size: 62.5%; // rendering 1rem to 10px based on browser font
+  // rendering vw to rem of 10px standard to resolution 1440 calc (( (units of rem:1 ) *  (desired rem size:10px )) / (design vw: 1440)) * 100
+  font-size: 0.694vw;
   // background-color: $--color-white;
 }
 
@@ -53,6 +55,11 @@ object {
   width: 100%;
   height: auto;
   max-height: 100%;
+  @extend .reversable;
+}
+
+svg {
+  @extend .reversable;
 }
 
 #root {
@@ -70,7 +77,7 @@ body {
   // height: max-content;
 
   font-weight: 400;
-  @include media-prop(font-size, 1.4rem, 1.4rem);
+  @include media-prop(font-size, 1.6rem, 1.4rem);
   letter-spacing: 0.3px;
   // width: min-content;
   line-height: 1.7rem;

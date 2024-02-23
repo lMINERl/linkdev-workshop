@@ -3,7 +3,7 @@
 
   &--poppins {
     &-base {
-      font: normal normal 500 1.8rem/2.4rem Poppins; // i wont import google sans
+      font: normal normal 500 1.7rem/2.4rem Open Sans; // i wont import google sans or poppins (design view != design specs)
     }
   }
 
@@ -19,5 +19,9 @@
 
   &--wrap {
     white-space: pre-wrap;
+  }
+
+  &--nowarp {
+    text-wrap: nowrap;
   }
 }

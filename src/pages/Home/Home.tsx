@@ -3,8 +3,21 @@ import Decoration from "../../assets/Decore.svg?react";
 import Play from "../../assets/Play.svg?react";
 import Header from "../../layout/Header";
 import { useAppDispatch, useAppSelector } from "../../Store";
-import { getLandingDispatch } from "../../Store/Thunk/GuestThunk";
+import { getLandingDispatch, getMediaNewsDispatch, getNewsCategoryDispatch } from "../../Store/Thunk/GuestThunk";
 import { GuestActions } from "../../Store/Slice/GuestSlice";
+import Category from "../../assets/Category.png";
+import Card from "../../components/Card";
+
+const newsCategory = [
+  { title: "All news", field: "" },
+  { title: "Technology", field: "" },
+
+  { title: "Sport", field: "" },
+
+  { title: "Health", field: "" },
+
+  { title: "Economics", field: "" },
+];
 
 const Home = () => {
   const [homeState, setHomeState] = React.useState({
@@ -12,17 +25,23 @@ const Home = () => {
   });
 
   const dispatch = useAppDispatch();
-  const landingData = useAppSelector((s) => s.guest.landing);
-
-  const selectedLanding = useAppSelector((s) => s.guest.selectedLanding);
+  const {
+    landing: landingData,
+    media: mediaNews,
+    newsCategory,
+    selectedLanding,
+    selectedCategory,
+  } = useAppSelector((s) => s.guest);
 
   React.useEffect(() => {
     setHomeState((old) => {
       return { ...old, loading: true };
     });
-    dispatch(getLandingDispatch()).finally(() => {
-      setHomeState((old) => {
-        return { ...old, loading: false };
+    dispatch(getNewsCategoryDispatch()).then((v) => {
+      Promise.all([dispatch(getMediaNewsDispatch()), dispatch(getLandingDispatch())]).finally(() => {
+        setHomeState((old) => {
+          return { ...old, loading: false };
+        });
       });
     });
   }, [dispatch]);
@@ -49,7 +68,7 @@ const Home = () => {
               <div className="home__landing__content__info__action-list">
                 <div className="home__landing__content__info__action-list__item">
                   <button
-                    className="button pt-s pb-s pl-m pr-m bg-orange border-m text-white typo typo--poppins-base"
+                    className="button rtl-pl-m rtl-pr-m pt-s pb-s pl-m pr-m bg-orange border-m text-white typo typo--poppins-base"
                     styles={{ backgroundColor: `#${selectedLanding.colorCode}` }}
                   >
                     Find out more
@@ -71,7 +90,7 @@ const Home = () => {
                     >
                       <Play style={{ fill: "var(--color-white)", width: "2.5rem", height: "2.5rem" }} />
                     </div>
-                    <div className="typo typo--poppins-base text-dark-silver ml-m">Play Demo</div>
+                    <div className="typo typo--poppins-base text-dark-silver ml-m rtl-ml-unset rtl-mr-m">Play Demo</div>
                   </button>
                 </div>
               </div>
@@ -80,10 +99,9 @@ const Home = () => {
                 <div className="home__landing__content__info__navigation-bullets">
                   {Array(500)
                     .fill(1)
-                    .map(() => {
-                      return "\u25CF";
-                    })
-                    .join(" ")}
+                    .map((_, i) => {
+                      return <React.Fragment key={i.toString()}>{"\u25CF"}</React.Fragment>;
+                    })}
                 </div>
                 <div className="home__landing__content__info__navigation-page">
                   {landingData?.slides.map((v) => {
@@ -112,6 +130,108 @@ const Home = () => {
           </div>
           <div className="home__landing__decoration">
             <Decoration className="home__landing__decoration__img" />
+          </div>
+        </section>
+        <section className="home__category bg-light-gray">
+          <div className="home__category__content">
+            <div className="home__category__content__banner bg-true-pink">
+              <div className="home__category__content__banner__content">
+                <p className="home__category__content__banner__content__title text-dark-pink">
+                  We Deliver Digital Productivity
+                </p>
+                <p className="home__category__content__banner__content__description text-white ">
+                  We craft technology solutions that digitally bond and transform the productivity of our customers and
+                  their citizens, workers, consumers and partners.
+                </p>
+              </div>
+            </div>
+
+            <div className="home__category__content__display text-white">
+              <div className="home__category__content__display__item">
+                <img src={Category} alt="category" style={{ width: "25rem", height: "25rem" }} />
+              </div>
+              <div className="home__category__content__display__item">
+                <img src={Category} alt="category" style={{ width: "25rem", height: "25rem" }} />
+
+                <img src={Category} alt="category" style={{ width: "25rem", height: "25rem" }} />
+              </div>
+              <div className="home__category__content__display__item">
+                <img src={Category} alt="category" style={{ width: "25rem", height: "25rem" }} />
+
+                <img src={Category} alt="category" style={{ width: "250rem", height: "25rem" }} />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="home__media">
+          <div className="home__media__title">Media</div>
+
+          <div className="home__media__headline">Top News</div>
+
+          <div className="home__media__list">
+            <button
+              type="button"
+              onClick={() => {
+                dispatch(GuestActions.setSelectedCategory(undefined));
+              }}
+              style={{ minWidth: "12.3rem" }}
+              className={`home__media__list__item button p-xs typo typo typo--nowarp border-m ${selectedCategory === undefined ? "bg-sky-blue text-white" : "bg-light-gray"}`}
+            >
+              All news
+            </button>
+
+            {newsCategory.map((v) => {
+              return (
+                <button
+                  type="button"
+                  key={v.id}
+                  style={{ minWidth: "12.3rem" }}
+                  onClick={() => {
+                    dispatch(GuestActions.setSelectedCategory(v));
+                  }}
+                  className={`home__media__list__item button  p-xs typo typo typo--nowarp border-m ${selectedCategory?.id == v.id ? "bg-sky-blue text-white" : "bg-light-gray"}`}
+                >
+                  {v.name}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="home__media__listing">
+            {mediaNews.map((v) => {
+              const d = new Date(v.publishedDate);
+              const date = d.toLocaleDateString("en", { dateStyle: "long" });
+              return (
+                <div key={v.id} className="home__media__listing__item">
+                  <Card category={v.categoryName} image={v.urlToImage} title={v.title} date={date} />
+                </div>
+              );
+            })}
+            <div className="home__media__listing__item">
+              <Card
+                image={Category}
+                title="Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
+                date="Wed 10 2020"
+                category="Technology"
+              />
+            </div>
+            <div className="home__media__listing__item">
+              <Card
+                image={Category}
+                title="Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
+                date="Wed 10 2020"
+                category="Technology"
+              />
+            </div>
+            <div className="home__media__listing__item">
+              <Card
+                image={Category}
+                title="Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
+                date="Wed 10 2020"
+                category="Technology"
+              />
+            </div>
           </div>
         </section>
       </div>

@@ -18,6 +18,7 @@
 
 // [components]  includes all separate components ie:button,dropsdown,accordion
 @import "components/button";
+@import "components/card";
 
 // [layout] more like component that is being used as standard across apps ie:table,footer,header,sidebar,appbar
 @import "layouts/header";
@@ -32,10 +33,7 @@
 @import "vendors/vendor";
 
 //  you can write anything here with !important or higher than class priority from this point on
-// that means you are doing something wrong and most likly you are not following the standard given
-// .shame {
-//
-// }
+// either your are trying to overwrite children based on some class or you are doing something wrong
 
 // overrides just for blur loading with cursor no drop
 // reason: the only way to override subelements from parent
@@ -47,4 +45,19 @@
     pointer-events: none !important;
     user-select: none !important;
   }
+}
+
+// reason: when moving from left to right some svg and images direction breaks
+// this is by default for all svg and images;
+.reversable {
+  @include rtl-value(
+    transform,
+    matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1),
+    matrix3d(-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+  );
+}
+
+// overwrites reversable for logos and non reversable images while direction matters
+.non-reversable {
+  transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1) !important;
 }

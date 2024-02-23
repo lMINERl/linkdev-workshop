@@ -18,15 +18,49 @@ $--iPad-width-ratio-landscape: 0.75;
       #{$property}: $labtop-value;
     }
   }
+
   @media (min-width: $--max-iPad) and (max-width: $--min-labtop) {
     & {
       #{$property}: $iPad-value;
     }
   }
+
   // less or equal than the biggest ipad
   @media only screen and (max-width: $--max-iPad) {
     & {
       #{$property}: $iPad-value;
+    }
+  }
+}
+
+@mixin media-dir($propLeft, $propRight, $labtop-value, $iPad-value) {
+  // more or equal than the smallets labtop
+  @media only screen and (min-width: $--min-labtop) {
+    & {
+      #{$propLeft}: $labtop-value;
+    }
+
+    body[dir="rtl"] & {
+      #{$propRight}: $labtop-value;
+    }
+  }
+
+  @media (min-width: $--max-iPad) and (max-width: $--min-labtop) {
+    & {
+      #{$propLeft}: $iPad-value;
+    }
+    body[dir="rtl"] & {
+      #{$propRight}: $iPad-value;
+    }
+  }
+
+  // less or equal than the biggest ipad
+  @media only screen and (max-width: $--max-iPad) {
+    & {
+      #{$propLeft}: $iPad-value;
+    }
+    body[dir="rtl"] & {
+      #{$propRight}: $iPad-value;
     }
   }
 }

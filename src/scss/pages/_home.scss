@@ -3,54 +3,55 @@
     display: flex;
     justify-content: flex-end;
     position: relative;
-    @include media-prop(overflow, hidden, unset);
-    @include media-prop(padding-right, 0rem, 1.4rem);
+    overflow: hidden;
+    @include rtl-prop(padding-right, padding-left, 0rem);
 
     &__content {
-      @include media-prop(padding-left, 4.8rem, 2.4rem);
+      @include rtl-prop(padding-left, padding-right, 4.8rem);
       display: flex;
       min-height: 53rem;
       width: 100%;
 
       &__info {
         margin-top: 8.4rem;
-        @include media-prop(width, 42rem, 100%);
-        @include media-prop(min-width, 42rem, unset);
+        width: 42rem;
+        min-width: 42rem;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
 
         &__hint {
-          font: normal normal bold 20px/30px Poppins;
+          font: normal normal bold 2rem/3rem Open Sans;
         }
 
         &__title {
           @extend .text-dark;
           margin-top: 2.4rem;
-          @include media-prop(font, normal normal 700 5.4rem/5.3rem Volkhov, normal normal 700 2.8rem/3.9rem Volkhov);
+          font: normal normal 700 5.4rem/5.3rem Open Sans;
         }
 
         &__description {
-          font: normal normal 500 16px/30px Poppins;
+          margin-top: 3.4rem;
+          font: normal normal 500 1.6rem/3rem Open Sans;
         }
 
         &__action-list {
-          @include media-prop(margin-top, 3.4rem, 1.8rem);
+          margin-top: 3.4rem;
           display: flex;
           justify-content: flex-start;
           align-items: center;
-          @include media-prop(flex-direction, row, column);
-          @include media-prop(width, unset, 100%);
+          flex-direction: row;
+          width: unset;
 
           &__item {
-            @include media-prop(margin-left, 4.4rem, unset);
-            @include media-prop(margin-top, unset, 2.8rem);
+            @include rtl-prop(margin-left, margin-right, 4.4rem);
+            margin-top: unset;
 
             &:nth-child(1) {
-              @include media-prop(margin-left, 0rem, unset);
+              @include rtl-prop(margin-left, margin-right, 0rem);
 
-              @include media-prop(margin-top, unset, 0rem);
+              margin-top: unset;
             }
           }
         }
@@ -59,9 +60,9 @@
           margin-top: 2.8rem;
           position: relative;
           display: flex;
-          @include media-prop(justify-content, flex-start, center);
+          justify-content: flex-start;
           align-items: center;
-          @include media-prop(width, 70%, 100%);
+          width: 70%;
 
           &-bullets {
             max-width: 100%;
@@ -83,7 +84,7 @@
       }
 
       &__display {
-        @include media-prop(display, flex, none);
+        display: flex;
         justify-content: flex-end;
         align-items: flex-start;
 
@@ -95,15 +96,135 @@
     }
 
     &__decoration {
-      @include media-prop(display, block, none);
+      display: block;
       position: absolute;
       width: 100%;
 
       &__img {
         position: absolute;
-        top: -38.6rem;
-        // left: 90rem;
-        right: -4%
+        width: 82.3rem;
+        height: 91.2rem;
+        top: -37.58rem;
+        @include rtl-prop (left, right, 88.6rem);
+      }
+    }
+  }
+
+  &__category {
+    @include rtl-value(padding, 8rem 0rem 9rem 5rem, 8rem 5rem 9rem 0rem);
+
+    &__content {
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+
+      &__banner {
+        @include rtl-value(padding, 5.8rem 7rem 9rem 3rem, 5.8rem 3rem 9rem 7rem);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        width: 88rem;
+        min-height: 54.2rem;
+
+        &__content {
+          max-width: 56.1rem;
+
+          &__title {
+            @include rtl-value(text-align, right, left);
+            font: normal normal bold 5.5rem/8rem Open Sans;
+          }
+
+          &__description {
+            margin-top: 5.4rem;
+            @include rtl-value(text-align, right, left);
+            font: normal normal 500 2.8rem/3.8rem Open Sans;
+          }
+        }
+      }
+
+      &__display {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        min-height: 100%;
+        @include rtl-prop(left, right, 1rem);
+        top: -0.8rem;
+
+        &__item {
+          width: 25rem;
+
+          max-width: 25rem;
+
+          &:nth-child(1) {
+            display: flex;
+            align-items: center;
+          }
+
+          &:nth-child(2) {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin-top: 5rem;
+          }
+
+          &:nth-child(3) {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+          }
+        }
+      }
+    }
+  }
+
+  &__media {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__title {
+      margin-top: 3rem;
+      font: normal normal 600 1.8rem/2.7rem Open Sans;
+    }
+
+    &__headline {
+      margin-top: 0.8rem;
+      font: normal normal bold 5rem/6.7rem Open Sans;
+    }
+
+    &__list {
+      margin: 3rem auto 0 auto;
+      display: flex;
+      align-items: center;
+
+      &__item {
+        @include rtl-prop(margin-left, margin-right, 3rem);
+
+        font: normal normal 500 1.8rem/2.4rem Open Sans;
+
+        &:nth-child(1) {
+          @include rtl-prop(margin-left, margin-right, 0rem);
+        }
+      }
+    }
+
+    &__listing {
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 80%; // ((cardsize * 3) + (gap * 2)  / 1440(port)) * 100
+
+      &__item {
+        margin-top: 4.7rem;
+
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-child(3) {
+          margin-top: 0rem;
+        }
+
+        width: 36rem;
       }
     }
   }

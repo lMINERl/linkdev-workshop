@@ -1,17 +1,25 @@
-$colors: [ --color-white,
+$colors:
+  [ --color-white,
   --color-transparent,
   --color-darkest,
+  --color-sky-blue,
   --color-dark,
+  --color-electric-blue,
   --color-orange,
   --color-darkest-green,
+  --color-light-gray,
   --color-dark-orange,
+  --color-dark-pink,
+  --color-true-pink,
+  --color-yankes-blue,
   --color-dark-silver];
 $colors-prefix: "--color-";
 
-$spacing: [--spacing-s2, --spacing-m, --spacing-m2, --spacing-s, --spacing-l, --spacing-xl, --spacing-xs];
+$spacing: [--spacing-unset,--spacing-s2, --spacing-m, --spacing-m2, --spacing-s, --spacing-l, --spacing-xl, --spacing-xs];
 $spacing-prefix: "--spacing-";
 
-$border-radius: [ --border-radius-xs,
+$border-radius:
+  [ --border-radius-xs,
   --border-radius-sm,
   --border-radius-m,
   --border-radius-l,
@@ -22,12 +30,14 @@ $border-radius: [ --border-radius-xs,
 
 $border-radius-prefix: "--border-radius-";
 
-$font-size: [ --font-size-xs,
+$font-size:
+  [ --font-size-xs,
   --font-size-s,
   --font-size-m,
   --font-size-l,
   --font-size-xl,
   --font-size-2xl];
+
 $font-size-prefix: "--font-size-";
 
 @include variants($colors, background-color, "bg", $colors-prefix);
@@ -40,25 +50,48 @@ $font-size-prefix: "--font-size-";
 @include variants($colors, border-color, "dark:border-bg", $colors-prefix);
 
 @include variants($spacing, padding-left, "pl", $spacing-prefix);
+@include variants($spacing, padding-left, "rtl:pl", $spacing-prefix);
+
 @include variants($spacing, padding-right, "pr", $spacing-prefix);
+@include variants($spacing, padding-right, "rtl:pr", $spacing-prefix);
+
 @include variants($spacing, padding-top, "pt", $spacing-prefix);
+@include variants($spacing, padding-top, "rtl:pt", $spacing-prefix);
+
 @include variants($spacing, padding-bottom, "pb", $spacing-prefix);
+@include variants($spacing, padding-bottom, "rtl:pb", $spacing-prefix);
+
 @include variants($spacing, padding, "p", $spacing-prefix);
 
 @include variants($spacing, margin, "m", $spacing-prefix);
+
 @include variants($spacing, margin-left, "ml", $spacing-prefix);
+@include variants($spacing, margin-left, "rtl:ml", $spacing-prefix);
+
 @include variants($spacing, margin-right, "mr", $spacing-prefix);
+@include variants($spacing, margin-right, "rtl:mr", $spacing-prefix);
+
 @include variants($spacing, margin-top, "mt", $spacing-prefix);
+@include variants($spacing, margin-top, "rtl:mt", $spacing-prefix);
+
 @include variants($spacing, margin-bottom, "mb", $spacing-prefix);
+@include variants($spacing, margin-bottom, "rtl:mb", $spacing-prefix);
 
 @include variants($font-size, font-size, "font", $font-size-prefix);
 
 @include variants($border-radius, border-radius, "border", $border-radius-prefix);
 
 @include variants($border-radius, border-top-left-radius, "border-tl", $border-radius-prefix);
+@include variants($border-radius, border-top-left-radius, "rtl:border-tl", $border-radius-prefix);
+
 @include variants($border-radius, border-top-right-radius, "border-tr", $border-radius-prefix);
+@include variants($border-radius, border-top-left-radius, "rtl:border-tr", $border-radius-prefix);
+
 @include variants($border-radius, border-bottom-right-radius, "border-br", $border-radius-prefix);
+@include variants($border-radius, border-top-left-radius, "rtl:border-br", $border-radius-prefix);
+
 @include variants($border-radius, border-bottom-left-radius, "border-bl", $border-radius-prefix);
+@include variants($border-radius, border-top-left-radius, "rtl:border-bl", $border-radius-prefix);
 
 :root {
   --color-white: #ffffff;
@@ -69,6 +102,12 @@ $font-size-prefix: "--font-size-";
   --color-dark-orange: #e72228;
   --color-dark-silver: #686d77;
   --color-darkest-green: #212832;
+  --color-light-gray: #efefef;
+  --color-true-pink: #f215b6;
+  --color-dark-pink: #253776;
+  --color-yankes-blue: #14183e;
+  --color-electric-blue: #5e6282;
+  --color-sky-blue: #13beff;
   // borders
 
   --border-radius-xs: 0.5rem;
@@ -111,4 +150,6 @@ $font-size-prefix: "--font-size-";
   --spacing-m2: 3.4rem;
   --spacing-l: 4.2rem;
   --spacing-xl: 5.2rem;
+
+  --spacing-unset : unset;
 }

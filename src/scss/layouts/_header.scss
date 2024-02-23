@@ -1,5 +1,5 @@
 .header {
-  @include media-prop(padding-left, 4.8rem, 2.4rem);
+  @include media-dir(padding-left, padding-right, 4.8rem, 2.4rem);
   position: relative;
 
   &__content {
@@ -12,7 +12,7 @@
     position: absolute;
 
     &__logo {
-      width: 1%;
+      // width: 1%;
 
       &-container {
         width: 19rem;
@@ -27,12 +27,12 @@
       width: 30%;
 
       &__item {
-        font: normal normal 500 1.7rem/2.2rem Poppins;
-        margin-left: 1.2rem;
+        font: normal normal 500 1.7rem/2.2rem Open Sans;
+        @include rtl-prop(margin-left, margin-right, 1.2rem);
         text-wrap: nowrap;
 
         &:nth-child(1) {
-          margin-left: 0rem;
+          @include rtl-prop(margin-left, margin-right, 0rem);
         }
       }
     }
@@ -44,10 +44,10 @@
 
       &__item {
         font: normal normal 500 1.7rem/2.2rem Poppins;
-        margin-left: 2.4rem;
+        @include rtl-prop(margin-left, margin-right, 2.4rem);
 
         &:nth-child(1) {
-          margin-left: 0rem;
+          @include rtl-prop(margin-left, margin-right, 0rem);
         }
       }
     }

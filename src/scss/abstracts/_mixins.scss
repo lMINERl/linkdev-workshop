@@ -1,11 +1,22 @@
 // ie english arabic you wont need it if you use flex
-@mixin rtl($property, $ltr-value, $rtl-value) {
+@mixin rtl-value($property, $ltr-value, $rtl-value) {
   & {
     #{$property}: $ltr-value;
   }
 
   body[dir="rtl"] & {
     #{$property}: $rtl-value;
+  }
+}
+
+@mixin rtl-prop($propLeft, $propRight, $value) {
+  & {
+    #{$propLeft}: $value;
+  }
+
+  body[dir="rtl"] & {
+    #{$propRight}: $value;
+    #{$propLeft}: unset;
   }
 }
 
@@ -18,16 +29,26 @@
 
 // creates a classes based on variants
 @mixin variants($list, $property, $prefix, $replace) {
-  @if (str-index($prefix, "dark:")) {
+  @if (str-index($prefix, "rtl:")) {
     @each $i in $list {
-      .#{str-replace($prefix,"dark:","dark-")}-#{str-replace($i,$replace,"")} {
-        @include theme("dark", $property, var($i));
+      .#{str-replace($prefix,"rtl:","rtl-")}-#{str-replace($i,$replace,"")} {
+        body[dir="rtl"] & {
+          #{$property}: var($i);
+        }
       }
     }
   } @else {
-    @each $i in $list {
-      .#{$prefix}-#{str-replace($i,$replace,"")} {
-        #{$property}: var($i);
+    @if (str-index($prefix, "dark:")) {
+      @each $i in $list {
+        .#{str-replace($prefix,"dark:","dark-")}-#{str-replace($i,$replace,"")} {
+          @include theme("dark", $property, var($i));
+        }
+      }
+    } @else {
+      @each $i in $list {
+        .#{$prefix}-#{str-replace($i,$replace,"")} {
+          #{$property}: var($i);
+        }
       }
     }
   }
